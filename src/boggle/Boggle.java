@@ -15,10 +15,10 @@ import javafx.application.Application;
  * @author Wouter
  */
 public class Boggle{
-    public static final int x = 3;
-    public static final int y = 3;
+    public static final int x = 16;
+    public static final int y = 16;
     // 4 bij 4 duurde enorm lang. Kennelijk verkeerde structuur gepakt.
-    public static final int pixels = 100;
+    public static final int pixels = 50;
     
 
     /**

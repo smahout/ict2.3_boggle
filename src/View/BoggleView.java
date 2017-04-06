@@ -40,11 +40,7 @@ public class BoggleView extends Application{
             @Override
             public void run(){
                 for(CharacterPoint cp: cp_list){
-                    Label l = new Label(Character.toString(cp.getCharacter()));
-                    l.setMinWidth(Boggle.pixels);
-                    l.setMinHeight(Boggle.pixels);
-                    l.setAlignment(Pos.CENTER);
-                    root.add(l, cp.getX(), cp.getY());
+                    root.add(cp.getLabel(), cp.getX(), cp.getY());
                 }
             }
         });

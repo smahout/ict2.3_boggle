@@ -47,17 +47,30 @@ public class BoggleController {
         });
         BoggleView.bv.drawWords(points);
         PathList pl = calculatePaths(points);
-        System.out.println("hoi");
+        for(String w: pl){
+            System.out.println(w);
+        }
         System.out.println(pl.size());
         
-        findWords(pl);
+        //findWords(pl);
     }
     private PathList calculatePaths(ArrayList<CharacterPoint> points){
-        PathList pl = new PathList();
-        for(CharacterPoint cp: points){
-            pl.makePathsForPoint(cp, new ArrayList<CharacterPoint>());
+        String word;
+        ArrayList<String> words = new ArrayList();
+        
+        try {
+            while((word = br.readLine()) != null){  // O(w)
+                words.add(word);
+            }
+            PathList pl = new PathList(words);      // 1
+            for(CharacterPoint cp: points){         // Loop itself is O(n)
+                pl.makePathsForPointAndCompare(cp, new ArrayList<CharacterPoint>());
+            }
+            return pl;
+        } catch (IOException ex) {
+            Logger.getLogger(BoggleController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return pl;
+        return null;
     }
     
     private void findNeighboursForPoint(CharacterPoint p){
@@ -92,16 +105,13 @@ public class BoggleController {
         }
         return null;
     }
-    private void findWords(PathList pl){
+    /*private void findWords(PathList pl){
         HashSet<String> words_found = new HashSet();
         try {
-            String word;
-            ArrayList<String> words = new ArrayList();
+            
             ArrayList<Thread> threads = new ArrayList();
             ArrayList<WordFinder> finders = new ArrayList();
-            while((word = br.readLine()) != null){
-                words.add(word);
-            }
+            
             int amount = Boggle.x * Boggle.y;
             int step = words.size() / amount;
             for (int i = 0; i < amount; i++) {
@@ -119,8 +129,6 @@ public class BoggleController {
                     words_found.add(word_in_finder);
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Couldn't open dictionary file or there was a disk error.");
         } catch (InterruptedException ex) {
             System.out.println("Something went wrong threading the find clause");
         }
@@ -128,7 +136,8 @@ public class BoggleController {
         for(String word: words_found){
             System.out.println(word);
         }
-    }
+*/
+    
 }
 class WordFinder implements Runnable{
     private ArrayList<String> words;
